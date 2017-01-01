@@ -1,4 +1,3 @@
-from scipy import optimize
 import numpy as np
 from collections import namedtuple
 import matplotlib.pyplot as plt
@@ -33,7 +32,6 @@ def forward(N, X):
     z3 = np.dot(a2, N.W2)
     yHat = sigmoid(z3)
     return NeuralNetRun(X, z2, a2, z3, yHat, N.W1, N.W2)
-
 
 def build_neural_net(inputLayerSize=2,
         outputLayerSize=1, hiddenLayerSize=3):
