@@ -72,7 +72,7 @@ commands = []
 for letter in alphabet:
     for font in fonts:
         for rotation in rotations:
-            filename = "renders/{}_{}_{}.tiff".format(letter, font, rotation)
+            filename = "renders/{}_{}_{}.png".format(letter, font, rotation)
             commands.append(
                 [
                     "convert",
