@@ -22,12 +22,13 @@ def build_input_data():
     y = []
     unicode_A = ord('A')
     counter = 0
-    paths = os.listdir('renders')
+    input_dir = 'renders7x9'
+    paths = os.listdir(input_dir)
     random.shuffle(paths)
     for f in paths:
-        if os.path.isfile(os.path.join('renders', f)):
-            if f[-6:] == '_0.png' and counter % 10 == 0: # counter % 50 == 0:
-                X.append(np.array(Image.open('renders/' + f), dtype=float).flatten())
+        if os.path.isfile(os.path.join(input_dir, f)):
+            if counter % 1 == 0:#f[-6:] == '_0.png' and counter % 10 == 0: # counter % 50 == 0:
+                X.append(np.array(Image.open(input_dir + '/' + f), dtype=float).flatten())
                 new_y_row = np.zeros(26, dtype=float)
                 new_y_row[ord(f[:1]) - unicode_A] = 1.0
                 y.append(new_y_row)
@@ -115,8 +116,8 @@ def forward(NN, X):
     yHat = yHat / np.sum(yHat)
     return NeuralNetRun(X, z2, a2, z3, yHat, NN.W1, NN.W2, NN.b1, NN.b2)
 
-def build_neural_net(inputLayerSize=100,
-        outputLayerSize=26, hiddenLayerSize=20):
+def build_neural_net(inputLayerSize=63,
+        outputLayerSize=26, hiddenLayerSize=100):
     np.random.seed(0)
     W1 = np.random.randn(inputLayerSize, hiddenLayerSize)
     W2 = np.random.randn(hiddenLayerSize, outputLayerSize)
@@ -168,7 +169,7 @@ def single_training_iteration(NN, scalar, pool):
     return NeuralNet(new_W1, new_W2, new_b1, new_b2), yHat
 
 # run all the iterations
-def train(initialNeuralNet, scalar=0.001, num_iterations=700):
+def train(initialNeuralNet, scalar=0.001, num_iterations=300):
 
     yHat_history = []
 
